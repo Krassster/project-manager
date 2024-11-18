@@ -5,24 +5,6 @@ import Loader from "../../ui/Loader";
 import Modal from "../../ui/modal/Modal";
 import styles from "./ProjectDetails.module.scss";
 
-const defaultData = [
-  {
-    title: "Выполнить план по тз",
-    created: "21.11.2024",
-    completed: true,
-  },
-  {
-    title: "Сделать реконструкцию функции",
-    created: "17.11.2024",
-    completed: false,
-  },
-  {
-    title: "Добавить фильтры для проектов",
-    created: "11.11.2024",
-    completed: true,
-  },
-];
-
 const ProjectDetail = () => {
   const [projects, setProjects] = useState(null);
   const [project, setProject] = useState(null);
@@ -38,8 +20,7 @@ const ProjectDetail = () => {
   const closeModal = () => setModalOpen(false);
 
   useEffect(() => {
-    const projects =
-      JSON.parse(localStorage.getItem("projects")) || defaultData;
+    const projects = JSON.parse(localStorage.getItem("projects")) || [];
     setProjects(projects);
     setProject(projects[projectIndex]);
     setIsLoading(false);

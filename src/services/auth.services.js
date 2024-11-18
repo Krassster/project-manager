@@ -2,36 +2,64 @@ import { v4 as uuidv4 } from "uuid";
 import { TOKEN } from "../app.constants";
 
 export const AuthService = {
-  authenticate(email, password, type) {
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-
+  async authenticate(email, password, type) {
     if (type === "register") {
-      const existingUser = users.find((user) => user.email === email);
-      if (existingUser) {
-        throw new Error("Пользователь с таким email уже существует.");
+      const res = await fetch("http://localhost:3001/users?email=" + email);
+      const users = await res.json();
+
+      if (users.length > 0) {
+        throw new Error("Пользователь с таким email уже существует");
       }
 
-      const token = uuidv4();
-      users.push({ email, password, token });
-      localStorage.setItem("users", JSON.stringify(users));
+      const newUser = {
+        id: Date.now(),
+        email,
+        password,
+        token: uuidv4(),
+        projects: [],
+      };
 
-      localStorage.setItem(TOKEN, token);
+      const createRes = await fetch("http://localhost:3001/users", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      });
+
+      if (!createRes.ok) {
+        throw new Error("Ошибка при создании пользователя");
+      }
+
+      const createUser = await createRes.json();
+
+      localStorage.setItem(TOKEN, createUser.token);
+      localStorage.setItem("isAuth", true);
 
       return;
     }
 
     if (type === "login") {
+      const res = await fetch("http://localhost:3001/users?email=" + email);
+      const users = await res.json();
+
       const user = users.find(
-        (user) => user.email === email && user.password === password
+        (user) => user.password === password && user.email === email
       );
+
       if (!user) {
-        throw new Error("Неверный email или пароль.");
+        throw new Error("Неверный email или пароль");
       }
-      localStorage.setItem("isAuth", "true");
+
+      localStorage.setItem(TOKEN, user.token);
+      localStorage.setItem("isAuth", true);
+
+      return;
     }
   },
 
   logout: () => {
+    localStorage.removeItem(TOKEN);
     localStorage.removeItem("isAuth");
   },
 

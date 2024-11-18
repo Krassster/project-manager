@@ -1,0 +1,42 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "test@test.test",
+      "password": "test0123",
+      "token": "7363ae44-adf0-4d92-8a2b-875bc803c344",
+      "projects": [
+        {
+          "title": "First",
+          "completeTask": 3,
+          "allTask": 5,
+          "created": "1.02.2024",
+          "tasks": [
+            {
+              "title": "Выполнить план по тз",
+              "created": "21.11.2024",
+              "completed": true
+            },
+            {
+              "title": "Сделать реконструкцию функции",
+              "created": "17.11.2024",
+              "completed": false
+            },
+            {
+              "title": "Добавить фильтры для проектов",
+              "created": "11.11.2024",
+              "completed": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 1731960805431,
+      "email": "aleksey.motrenko@yandex.ru",
+      "password": "aleksey.motrenko@yandex.ru",
+      "token": "7363ae44-adf0-4d92-8a2b-875bc803c704",
+      "projects": []
+    }
+  ]
+}

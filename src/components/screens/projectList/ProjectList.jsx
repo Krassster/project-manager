@@ -88,18 +88,55 @@ const ProjectList = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const savedProjects = JSON.parse(localStorage.getItem("projects"));
-    if (savedProjects) {
-      setProjects(savedProjects);
-    } else {
-      setProjects(defaultData);
-      localStorage.setItem("projects", JSON.stringify(defaultData));
-    }
+    const token = localStorage.getItem("token");
+
+    fetch("http://localhost:3001/users")
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Ошибка загрузки проекта");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        const user = data.find((user) => user.token === token);
+        if (user) {
+          setProjects(user.projects);
+        }
+      });
   }, []);
 
   useEffect(() => {
     if (projects.length > 0) {
-      localStorage.setItem("projects", JSON.stringify(projects));
+      const token = localStorage.getItem("token");
+
+      fetch("http://localhost:3001/users?token=" + token, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("Ошибкa при получении пользовательских данных");
+          }
+          return res.json();
+        })
+        .then((users) => {
+          const user = users.find((user) => user.token === token);
+          if (user) {
+            fetch(`http://localhost:3001/users/${user.id}`, {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                projects: projects,
+              }),
+            })
+              .then((res) => res.json())
+              .catch((e) => console.error("Ошибка при обновлении данных:", e));
+          }
+        });
     }
   }, [projects]);
 

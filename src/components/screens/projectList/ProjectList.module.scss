@@ -1,0 +1,70 @@
+.project {
+  max-height: 320px;
+  overflow-y: overlay;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgb(106, 137, 143);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgb(87, 133, 129);
+  }
+}
+
+h1 {
+  margin-bottom: 16px;
+  font-size: 24px;
+  color: rgb(255, 255, 255);
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+  margin: auto;
+  width: 80%;
+  padding: 0;
+  max-height: 100%;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    cursor: pointer;
+    margin-bottom: 8px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    div {
+      flex: 1;
+      text-align: center;
+
+      &:first-child {
+        font-weight: 600;
+        color: #333;
+      }
+
+      &:nth-child(2),
+      &:nth-child(3) {
+        font-size: 14px;
+        color: #666;
+      }
+    }
+  }
+}

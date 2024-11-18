@@ -1,0 +1,20 @@
+@import "src/assets/styles/variables";
+@import "src/assets/styles/animations";
+
+.wrapper {
+  position: relative;
+  button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  > button {
+    font-size: 60px;
+
+    > svg > path {
+      fill: #fff;
+    }
+  }
+}

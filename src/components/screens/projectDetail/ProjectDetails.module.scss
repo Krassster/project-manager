@@ -1,0 +1,79 @@
+html {
+  font-family: sans-serif;
+  font-size: 14px;
+}
+
+h1 {
+  margin: 25px;
+}
+table {
+  border-spacing: 1;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 6px;
+  overflow: hidden;
+  max-width: 800px;
+  width: 90%;
+  margin: 0 auto;
+  position: relative;
+
+  * {
+    position: relative;
+  }
+
+  td,
+  th {
+    padding-left: 8px;
+  }
+
+  thead {
+    & tr {
+      height: 60px;
+      background: #ffed86;
+      font-size: 12px;
+    }
+  }
+
+  tbody {
+    & tr {
+      height: 48px;
+      border-bottom: 1px solid #e3f1d5;
+      &:last-child {
+        border: 0;
+      }
+    }
+  }
+
+  td,
+  th {
+    text-align: left;
+    &.l {
+      text-align: right;
+    }
+    &.c {
+      text-align: center;
+    }
+    &.r {
+      text-align: center;
+    }
+  }
+}
+
+.editTableInput {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  width: 100%;
+}
+
+.editTableInput:focus {
+  outline: none;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  padding: 2px;
+}
+
+.strikethrough {
+  text-decoration: line-through;
+  color: gray;
+}

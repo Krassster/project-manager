@@ -34,6 +34,7 @@ export const AuthService = {
       const createUser = await createRes.json();
 
       localStorage.setItem(TOKEN, createUser.token);
+      localStorage.setItem("user", JSON.stringify({ id: createUser.id }));
       localStorage.setItem("isAuth", true);
 
       return;
@@ -52,6 +53,7 @@ export const AuthService = {
       }
 
       localStorage.setItem(TOKEN, user.token);
+      localStorage.setItem("user", JSON.stringify({ id: user.id }));
       localStorage.setItem("isAuth", true);
 
       return;
@@ -60,6 +62,7 @@ export const AuthService = {
 
   logout: () => {
     localStorage.removeItem(TOKEN);
+    localStorage.removeItem("user");
     localStorage.removeItem("isAuth");
   },
 

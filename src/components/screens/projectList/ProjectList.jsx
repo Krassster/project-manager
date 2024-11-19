@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
-import Layout from "../../layout/Layout";
-import "./ProjectList.module.scss";
 import { MdDelete } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import Layout from "../../layout/Layout";
 import Modal from "../../ui/modal/Modal";
 import styles from "./ProjectList.module.scss";
+import {
+  getUserProjects,
+  updateUserProject,
+  updateUserProjects,
+} from "../../../services/users.service";
+import "./ProjectList.module.scss";
+import { useAuth } from "../../../hooks/useAuth";
 
 const defaultData = [
   {
@@ -86,69 +92,30 @@ const ProjectList = () => {
   const closeModal = () => setModalOpen(false);
 
   const navigate = useNavigate();
+  const {
+    user: { id: userId },
+  } = useAuth();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const fetchProjects = async () => {
+      const data = await getUserProjects(userId);
+      setProjects(data);
+    };
 
-    fetch("http://localhost:3001/users")
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Ошибка загрузки проекта");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        const user = data.find((user) => user.token === token);
-        if (user) {
-          setProjects(user.projects);
-        }
-      });
+    fetchProjects();
   }, []);
 
-  useEffect(() => {
-    if (projects.length > 0) {
-      const token = localStorage.getItem("token");
-
-      fetch("http://localhost:3001/users?token=" + token, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((res) => {
-          if (!res.ok) {
-            throw new Error("Ошибкa при получении пользовательских данных");
-          }
-          return res.json();
-        })
-        .then((users) => {
-          const user = users.find((user) => user.token === token);
-          if (user) {
-            fetch(`http://localhost:3001/users/${user.id}`, {
-              method: "PATCH",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                projects: projects,
-              }),
-            })
-              .then((res) => res.json())
-              .catch((e) => console.error("Ошибка при обновлении данных:", e));
-          }
-        });
-    }
-  }, [projects]);
-
   const addProject = (newProject) => {
-    const updatedProject = [...projects, newProject];
-    setProjects(updatedProject);
+    const updatedProjects = [...projects, newProject];
+    setProjects(updatedProjects);
+    updateUserProjects(updatedProjects, userId);
   };
 
   const deleteProject = (index) => {
     setProjects((prevItems) =>
       prevItems.filter((item) => item !== prevItems[index])
     );
+    updateUserProjects(projects, userId);
   };
 
   const handleProjectClick = (index) => {

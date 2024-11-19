@@ -22,23 +22,27 @@ const Modal = ({ isOpen, onClose, addTask, addProject, title, type }) => {
     if (inputValue.trim()) {
       if (type === "task") {
         addTask({
+          id: Date.now(),
           title: inputValue,
           created: getCurrentDate(),
           completed: false,
         });
       } else if (type === "project") {
         addProject({
+          id: Date.now(),
           title: inputValue,
-          completeTask: "0",
-          allTask: "1",
+          completeTask: "1",
+          allTask: "2",
           created: getCurrentDate(),
           tasks: [
             {
+              id: Date.now(),
               title: "Твоя первая задача",
               created: getCurrentDate(),
               completed: false,
             },
             {
+              id: Date.now(),
               title: "Задача которую ты уже выполнил",
               created: getCurrentDate(),
               completed: true,

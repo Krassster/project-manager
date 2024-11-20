@@ -37,7 +37,7 @@ const Modal = ({ isOpen, onClose, addTask, addProject, title, type }) => {
           tasks: [
             {
               id: Date.now(),
-              title: "Твоя первая задача",
+              title: "Твоя первая задача в этом проекте",
               created: getCurrentDate(),
               completed: false,
             },

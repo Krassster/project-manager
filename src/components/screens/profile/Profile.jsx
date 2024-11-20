@@ -1,15 +1,14 @@
-import Layout from "../../layout/Layout";
+import Menu from "../../layout/menu/Menu";
 
 const Profile = () => {
   return (
-    <Layout>
-      <div className="container">
-        <div>Имя</div>
-        <div>Количество проектов</div>
-        <div>Количество задач (выполнено/всего)</div>
-        <div>Дата создания аккаунта</div>
-      </div>
-    </Layout>
+    <div className="container">
+      <Menu />
+      <div>Имя</div>
+      <div>Количество проектов</div>
+      <div>Количество задач (выполнено/всего)</div>
+      <div>Дата создания аккаунта</div>
+    </div>
   );
 };
 

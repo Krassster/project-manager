@@ -1,7 +1,5 @@
 const Loader = () => {
-  return (
-    <img src="/images/three-dots.svg" alt="loader" draggable={false}/>
-  )
-}
+  return <img src="/images/125.gif" alt="loader" draggable={false} />;
+};
 
-export default Loader
+export default Loader;

@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import Layout from "../../layout/Layout";
 import Modal from "../../ui/modal/Modal";
 import styles from "./ProjectList.module.scss";
 import {
   getUserProjects,
-  updateUserProject,
   updateUserProjects,
 } from "../../../services/users.service";
 import "./ProjectList.module.scss";
 import { useAuth } from "../../../hooks/useAuth";
+import Menu from "../../layout/menu/Menu";
 
 const defaultData = [
   {
@@ -124,6 +123,7 @@ const ProjectList = () => {
 
   return (
     <div className="container">
+      <Menu />
       <h1>Мои проекты</h1>
       <div className={styles.project}>
         <ul>

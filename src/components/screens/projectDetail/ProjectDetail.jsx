@@ -3,14 +3,15 @@ import { useLocation } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
 import {
   getUserProjects,
-  updateUserProject,
   updateUserProjects,
 } from "../../../services/users.service";
 
 import Loader from "../../ui/Loader";
 import Modal from "../../ui/modal/Modal";
-import styles from "./ProjectDetails.module.scss";
+import Menu from "../../layout/menu/Menu";
 import { useAuth } from "../../../hooks/useAuth";
+
+import styles from "./ProjectDetails.module.scss";
 
 const ProjectDetail = () => {
   const [projects, setProjects] = useState([]);
@@ -19,6 +20,7 @@ const ProjectDetail = () => {
   const [editValues, setEditValues] = useState({ title: "", created: "" });
   const [isModalOpen, setModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
   const location = useLocation();
   const {
     user: { id: userId },
@@ -102,6 +104,7 @@ const ProjectDetail = () => {
         <Loader />
       ) : (
         <div className="container">
+          <Menu />
           <h1>{project.title}</h1>
           <table>
             <thead>
@@ -180,14 +183,16 @@ const ProjectDetail = () => {
               ))}
             </tbody>
           </table>
-          <button onClick={openModal}>Добавить новую задачу</button>
-          <Modal
-            isOpen={isModalOpen}
-            onClose={closeModal}
-            addTask={addTask}
-            title="задачу"
-            type="task"
-          />
+          <div>
+            <button onClick={openModal}>Добавить новую задачу</button>
+            <Modal
+              isOpen={isModalOpen}
+              onClose={closeModal}
+              addTask={addTask}
+              title="задачу"
+              type="task"
+            />
+          </div>
         </div>
       )}
     </>

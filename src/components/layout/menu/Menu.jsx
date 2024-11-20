@@ -1,34 +1,51 @@
-import { Link, useNavigate } from "react-router-dom";
-
-// import { useAuth } from "../../../hooks/useAuth";
+import { CgProfile } from "react-icons/cg";
+import { GoProjectRoadmap } from "react-icons/go";
+import { RiLogoutBoxLine } from "react-icons/ri";
+import { useLocation, useNavigate } from "react-router-dom";
+import { AuthService } from "../../../services/auth.services";
 
 import styles from "./Menu.module.scss";
-import { menu } from "./menu.data";
 
-export const Menu = ({ isShow, setIsShow }) => {
-  //   const { setIsAuth } = useAuth();
-
+const Menu = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const logoutHandler = () => {
-    // setIsAuth(false);
-    setIsShow(false);
+  const isActive = (path) => location.pathname === path;
 
-    navigate("/auth");
+  const handleNavigateClick = (path) => {
+    navigate(path);
   };
 
   return (
-    <nav className={`${styles.menu} ${isShow ? styles.show : ""}`}>
-      <ul>
-        {menu.map((item, index) => (
-          <li key={`_menu_${index}`}>
-            <Link to={item.link}>{item.title}</Link>
-          </li>
-        ))}
-        <li>
-          <button onClick={logoutHandler}>Logout</button>
-        </li>
-      </ul>
-    </nav>
+    <div className={styles.wrapper}>
+      <div className={styles.menu_left}>
+        <CgProfile
+          className={`${styles.icon_img} ${
+            isActive("/profile") ? styles.icon_active : ""
+          }`}
+          size={"35px"}
+          onClick={() => handleNavigateClick("/profile")}
+        />
+        <GoProjectRoadmap
+          className={`${styles.icon_img} ${
+            isActive("/projects") ? styles.icon_active : ""
+          }`}
+          size={"35px"}
+          onClick={() => handleNavigateClick("/projects")}
+        />
+      </div>
+      <div className="menu_right">
+        <RiLogoutBoxLine
+          className={styles.icon_img}
+          onClick={() => {
+            AuthService.logout();
+            handleNavigateClick("/");
+          }}
+          size={"35px"}
+        />
+      </div>
+    </div>
   );
 };
+
+export default Menu;

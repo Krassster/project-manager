@@ -36,10 +36,10 @@ export const useAuthPage = () => {
     }
   }, [isAuth, navigate]);
 
-  const handleAuthentication = async ({ email, password }) => {
+  const handleAuthentication = async ({ username, email, password }) => {
     setIsLoading(true);
     try {
-      await AuthService.authenticate(email, password, type);
+      await AuthService.authenticate(username, email, password, type);
       setIsAuth(true);
       resetLogin();
       resetRegister();

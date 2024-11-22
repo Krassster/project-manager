@@ -31,8 +31,8 @@ const Modal = ({ isOpen, onClose, addTask, addProject, title, type }) => {
         addProject({
           id: Date.now(),
           title: inputValue,
-          completeTask: "1",
-          allTask: "2",
+          completedTasks: 1,
+          allTasks: 2,
           created: getCurrentDate(),
           tasks: [
             {
@@ -42,7 +42,7 @@ const Modal = ({ isOpen, onClose, addTask, addProject, title, type }) => {
               completed: false,
             },
             {
-              id: Date.now(),
+              id: Date.now() + 1,
               title: "Задача которую ты уже выполнил",
               created: getCurrentDate(),
               completed: true,

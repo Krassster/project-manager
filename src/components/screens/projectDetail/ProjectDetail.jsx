@@ -1,10 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
-import {
-  getUserProjects,
-  updateUserProjects,
-} from "../../../services/users.service";
+import { getUser, updateUserProjects } from "../../../services/users.service";
 
 import Loader from "../../ui/Loader";
 import Modal from "../../ui/modal/Modal";
@@ -16,11 +13,12 @@ import styles from "./ProjectDetails.module.scss";
 const ProjectDetail = () => {
   const [projects, setProjects] = useState([]);
   const [project, setProject] = useState(null);
-  const [editingIndex, setEditingIndex] = useState(null);
-  const [editValues, setEditValues] = useState({ title: "", created: "" });
   const [isModalOpen, setModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [editingTaskId, setEditingTaskId] = useState(null);
+  const [editedTitle, setEditedTitle] = useState("");
 
+  const inputRef = useRef(null);
   const location = useLocation();
   const {
     user: { id: userId },
@@ -32,8 +30,8 @@ const ProjectDetail = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       setIsLoading(true);
-      const userProjects = await getUserProjects(userId);
-      setProjects(userProjects);
+      const user = await getUser(userId);
+      setProjects(user.projects);
       setIsLoading(false);
     };
 
@@ -47,26 +45,22 @@ const ProjectDetail = () => {
     }
   }, [projects, location]);
 
+  const calcTaskStats = (tasks) => {
+    const allTasks = tasks.length;
+    const completedTasks = tasks.filter((task) => task.completed).length;
+
+    return { allTasks, completedTasks };
+  };
+
   const handleUpdateProjects = (updatedProject) => {
+    const taskStats = calcTaskStats(updatedProject.tasks);
+    const updStatsProject = { ...updatedProject, ...taskStats };
+
     const updProjects = projects.map((project) =>
-      project.id === updatedProject.id ? updatedProject : project
+      project.id === updStatsProject.id ? updStatsProject : project
     );
     setProjects(updProjects);
     updateUserProjects(updProjects, userId);
-  };
-
-  const handleEditClick = (index, field, value) => {
-    setEditingIndex(index);
-    setEditValues({ ...editValues, [field]: value });
-  };
-
-  const handleInputChange = (field, value) => {
-    setEditValues((prev) => ({ ...prev, [field]: value }));
-  };
-
-  const handleBlur = (index) => {
-    updateTask(index, editValues);
-    setEditingIndex(null);
   };
 
   const toggleCompleted = (taskId) => {
@@ -74,20 +68,32 @@ const ProjectDetail = () => {
       task.id === taskId ? { ...task, completed: !task.completed } : task
     );
     const updatedProject = { ...project, tasks: updatedTasks };
-    console.log(updatedProject);
     handleUpdateProjects(updatedProject);
   };
 
-  const addTask = (newTask) => {
-    const updatedTasks = [...project.tasks, newTask];
+  const editTaskTitle = (taskId, newTitle) => {
+    const updatedTasks = project.tasks.map((task) =>
+      task.id === taskId ? { ...task, title: newTitle } : task
+    );
     const updatedProject = { ...project, tasks: updatedTasks };
     handleUpdateProjects(updatedProject);
   };
 
-  const updateTask = (taskId, updatedTask) => {
-    const updatedTasks = project.tasks.map((task) =>
-      task.id === taskId ? { ...task, ...updatedTask } : task
-    );
+  const handleBlur = () => {
+    if (editedTitle !== "") {
+      editTaskTitle(editingTaskId, editedTitle);
+      setEditingTaskId(null);
+      setEditedTitle("");
+    }
+  };
+
+  const handleFocus = (taskId, title) => {
+    setEditingTaskId(taskId);
+    setEditedTitle(title);
+  };
+
+  const addTask = (newTask) => {
+    const updatedTasks = [...project.tasks, newTask];
     const updatedProject = { ...project, tasks: updatedTasks };
     handleUpdateProjects(updatedProject);
   };
@@ -116,50 +122,29 @@ const ProjectDetail = () => {
               </tr>
             </thead>
             <tbody>
-              {project.tasks?.map((task, index) => (
+              {project.tasks?.map((task) => (
                 <tr
                   key={task.title}
                   className={task.completed ? styles.strikethrough : ""}>
                   <td>
-                    {editingIndex === index ? (
+                    {editingTaskId === task.id ? (
                       <input
+                        ref={inputRef}
                         type="text"
-                        value={editValues.title}
-                        className={styles.editTableInput}
-                        onChange={(e) =>
-                          handleInputChange("title", e.target.value)
-                        }
-                        onBlur={() => handleBlur(index)}
+                        value={editedTitle}
+                        onChange={(e) => setEditedTitle(e.target.value)}
+                        onBlur={handleBlur}
                         autoFocus
+                        className={styles.editTableInput}
                       />
                     ) : (
-                      <span
-                        onClick={() =>
-                          handleEditClick(task.id, "title", task.title)
-                        }>
+                      <span onClick={() => handleFocus(task.id, task.title)}>
                         {task.title}
                       </span>
                     )}
                   </td>
                   <td>
-                    {editingIndex === index ? (
-                      <input
-                        type="text"
-                        className={styles.editTableInput}
-                        value={editValues.created}
-                        onChange={(e) =>
-                          handleInputChange("created", e.target.value)
-                        }
-                        onBlur={() => handleBlur(task.id)}
-                      />
-                    ) : (
-                      <span
-                        onClick={() =>
-                          handleEditClick(task.id, "created", task.created)
-                        }>
-                        {task.created}
-                      </span>
-                    )}
+                    <span style={{ cursor: "default" }}>{task.created}</span>
                   </td>
                   <td>
                     <input

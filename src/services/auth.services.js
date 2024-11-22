@@ -1,8 +1,32 @@
 import { v4 as uuidv4 } from "uuid";
 import { TOKEN } from "../app.constants";
 
+const defaultData = [
+  {
+    id: 1732284285655,
+    title: "Домашние дела",
+    completedTasks: 1,
+    allTasks: 2,
+    created: "22.11.2024",
+    tasks: [
+      {
+        id: 1732284285655,
+        title: "Собрать паутину",
+        created: "22.11.2024",
+        completed: false,
+      },
+      {
+        id: 1732284285656,
+        title: "Купить продуктов",
+        created: "19.11.2024",
+        completed: true,
+      },
+    ],
+  },
+];
+
 export const AuthService = {
-  async authenticate(email, password, type) {
+  async authenticate(username, email, password, type) {
     if (type === "register") {
       const res = await fetch("http://localhost:3001/users?email=" + email);
       const users = await res.json();
@@ -12,11 +36,12 @@ export const AuthService = {
       }
 
       const newUser = {
-        id: Date.now(),
+        id: Date.now().toString(),
+        username,
         email,
         password,
         token: uuidv4(),
-        projects: [],
+        projects: defaultData,
       };
 
       const createRes = await fetch("http://localhost:3001/users", {

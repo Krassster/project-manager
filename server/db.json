@@ -54,6 +54,63 @@
               "completed": true
             }
           ]
+        },
+        {
+          "id": 1732371934933,
+          "title": "123",
+          "completedTasks": 0,
+          "allTasks": 1,
+          "created": "23.11.2024",
+          "tasks": [
+            {
+              "id": 1732371934933,
+              "title": "Твоя первая задача в этом проекте",
+              "created": "23.11.2024",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": 1732371977651,
+          "title": "Двойная запись",
+          "completedTasks": 1,
+          "allTasks": 2,
+          "created": "23.11.2024",
+          "tasks": [
+            {
+              "id": 1732371977651,
+              "title": "Твоя первая задача в этом проекте",
+              "created": "23.11.2024",
+              "completed": false
+            },
+            {
+              "id": 1732371977652,
+              "title": "Задача которую ты уже выполнил",
+              "created": "23.11.2024",
+              "completed": true
+            }
+          ]
+        },
+        {
+          "id": 1732372072500,
+          "title": "Тройной наеб",
+          "completedTasks": 1,
+          "allTasks": 2,
+          "created": "23.11.2024",
+          "tasks": [
+            {
+              "id": 1732372072500,
+              "title": "Твоя первая задача в этом проекте",
+              "created": "23.11.2024",
+              "completed": false
+            },
+            {
+              "id": 1732372072501,
+              "title": "Задача которую ты уже выполнил",
+              "created": "23.11.2024",
+              "completed": true
+            }
+          ]
         }
       ]
     },
@@ -88,18 +145,72 @@
         {
           "id": 1732314029512,
           "title": "123",
-          "completedTasks": 1,
-          "allTasks": 2,
+          "completedTasks": 3,
+          "allTasks": 3,
           "created": "23.11.2024",
           "tasks": [
             {
               "id": 1732314029512,
               "title": "Твоя первая задача в этом проекте",
               "created": "23.11.2024",
-              "completed": false
+              "completed": true
             },
             {
               "id": 1732314029513,
+              "title": "Задача которую ты уже выполнил",
+              "created": "23.11.2024",
+              "completed": true
+            },
+            {
+              "id": 1732394001319,
+              "title": "Raf",
+              "created": "23.11.2024",
+              "completed": true
+            }
+          ]
+        },
+        {
+          "id": 1732372303958,
+          "title": "Мои дела изменились",
+          "completedTasks": 1,
+          "allTasks": 3,
+          "created": "23.11.2024",
+          "tasks": [
+            {
+              "id": 1732372303958,
+              "title": "Твоя первая задача в этом проекте",
+              "created": "23.11.2024",
+              "completed": false
+            },
+            {
+              "id": 1732372303959,
+              "title": "Задача которую ты уже выполнил",
+              "created": "23.11.2024",
+              "completed": true
+            },
+            {
+              "id": 1732393988230,
+              "title": "412",
+              "created": "23.11.2024",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": 1732372488885,
+          "title": "Какой то ещё проект",
+          "completedTasks": 1,
+          "allTasks": 2,
+          "created": "23.11.2024",
+          "tasks": [
+            {
+              "id": 1732372488885,
+              "title": "Твоя первая задача в этом проекте",
+              "created": "23.11.2024",
+              "completed": false
+            },
+            {
+              "id": 1732372488886,
               "title": "Задача которую ты уже выполнил",
               "created": "23.11.2024",
               "completed": true

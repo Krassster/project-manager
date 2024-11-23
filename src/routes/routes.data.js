@@ -1,7 +1,7 @@
 import Auth from "../components/screens/auth/Auth";
-import Profile from "../components/screens/profile/Profile";
-import ProjectDetail from "../components/screens/projectDetail/ProjectDetail";
-import ProjectList from "../components/screens/projectList/ProjectList";
+import Profile from "../components/screens/profile/Profile.tsx";
+import ProjectDetail from "../components/screens/projectDetail/ProjectDetail.tsx";
+import ProjectList from "../components/screens/projectList/ProjectList.tsx";
 
 export const routes = [
   {

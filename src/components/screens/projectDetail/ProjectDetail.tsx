@@ -1,25 +1,24 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
-import { getUser, updateUserProjects } from "../../../services/users.service";
-
-import Loader from "../../ui/Loader";
-import Modal from "../../ui/modal/Modal";
-import Menu from "../../layout/menu/Menu";
-import { useAuth } from "../../../hooks/useAuth";
-
 import styles from "./ProjectDetails.module.scss";
+import { useAuth } from "hooks/useAuth";
+import { getUser, updateUserProjects } from "services/users.service";
+import Loader from "components/ui/Loader";
+import Menu from "components/layout/menu/Menu";
+import Modal from "components/ui/modal/Modal";
 
 const ProjectDetail = () => {
-  const [projects, setProjects] = useState([]);
-  const [project, setProject] = useState(null);
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [editingTaskId, setEditingTaskId] = useState(null);
-  const [editedTitle, setEditedTitle] = useState("");
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [project, setProject] = useState<Project>();
+  const [isModalOpen, setModalOpen] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [editingTaskId, setEditingTaskId] = useState<number>(0);
+  const [editedTitle, setEditedTitle] = useState<string>("");
 
   const inputRef = useRef(null);
   const location = useLocation();
+
   const {
     user: { id: userId },
   } = useAuth();
@@ -31,6 +30,7 @@ const ProjectDetail = () => {
     const fetchProjects = async () => {
       setIsLoading(true);
       const user = await getUser(userId);
+
       setProjects(user.projects);
       setIsLoading(false);
     };
@@ -39,20 +39,21 @@ const ProjectDetail = () => {
   }, []);
 
   useEffect(() => {
-    const { projectIndex } = location.state || {};
-    if (projects.length > 0 && projectIndex >= 0) {
-      setProject(projects[projectIndex]);
+    const { projectId } = location.state || {};
+    if (projects.length > 0 && projectId >= 0) {
+      const project = projects.filter((project) => project.id === projectId);
+      setProject(project[0]);
     }
   }, [projects, location]);
 
-  const calcTaskStats = (tasks) => {
+  const calcTaskStats = (tasks: Task[]) => {
     const allTasks = tasks.length;
     const completedTasks = tasks.filter((task) => task.completed).length;
 
     return { allTasks, completedTasks };
   };
 
-  const handleUpdateProjects = (updatedProject) => {
+  const handleUpdateProjects = (updatedProject: Project) => {
     const taskStats = calcTaskStats(updatedProject.tasks);
     const updStatsProject = { ...updatedProject, ...taskStats };
 
@@ -63,45 +64,53 @@ const ProjectDetail = () => {
     updateUserProjects(updProjects, userId);
   };
 
-  const toggleCompleted = (taskId) => {
-    const updatedTasks = project.tasks.map((task) =>
-      task.id === taskId ? { ...task, completed: !task.completed } : task
-    );
-    const updatedProject = { ...project, tasks: updatedTasks };
-    handleUpdateProjects(updatedProject);
+  const toggleCompleted = (taskId: number) => {
+    if (project) {
+      const updatedTasks = project.tasks.map((task) =>
+        task.id === taskId ? { ...task, completed: !task.completed } : task
+      );
+      const updatedProject = { ...project, tasks: updatedTasks };
+      handleUpdateProjects(updatedProject);
+    }
   };
 
-  const editTaskTitle = (taskId, newTitle) => {
-    const updatedTasks = project.tasks.map((task) =>
-      task.id === taskId ? { ...task, title: newTitle } : task
-    );
-    const updatedProject = { ...project, tasks: updatedTasks };
-    handleUpdateProjects(updatedProject);
+  const editTaskTitle = (taskId: number, newTitle: string) => {
+    if (project) {
+      const updatedTasks = project.tasks.map((task) =>
+        task.id === taskId ? { ...task, title: newTitle } : task
+      );
+      const updatedProject = { ...project, tasks: updatedTasks };
+      handleUpdateProjects(updatedProject);
+    }
   };
 
   const handleBlur = () => {
     if (editedTitle !== "") {
       editTaskTitle(editingTaskId, editedTitle);
-      setEditingTaskId(null);
+      setEditingTaskId(0);
       setEditedTitle("");
     }
   };
 
-  const handleFocus = (taskId, title) => {
+  const handleFocus = (taskId: number, title: string) => {
     setEditingTaskId(taskId);
     setEditedTitle(title);
   };
 
-  const addTask = (newTask) => {
-    const updatedTasks = [...project.tasks, newTask];
-    const updatedProject = { ...project, tasks: updatedTasks };
-    handleUpdateProjects(updatedProject);
+  const addTask = (newTask: Task) => {
+    if (project) {
+      const updatedTasks = [...project.tasks, newTask];
+      const updatedProject = { ...project, tasks: updatedTasks };
+      handleUpdateProjects(updatedProject);
+    }
   };
 
-  const deleteTask = (taskId) => {
-    const updatedTasks = project.tasks.filter((task) => task.id !== taskId);
-    const updatedProject = { ...project, tasks: updatedTasks };
-    handleUpdateProjects(updatedProject);
+  const deleteTask = (taskId: number) => {
+    if (project) {
+      const updatedTasks = project.tasks.filter((task) => task.id !== taskId);
+      const updatedProject = { ...project, tasks: updatedTasks };
+      handleUpdateProjects(updatedProject);
+    }
   };
 
   return (

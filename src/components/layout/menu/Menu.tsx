@@ -10,9 +10,9 @@ const Menu = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isActive = (path) => location.pathname === path;
+  const isActive = (path: string) => location.pathname === path;
 
-  const handleNavigateClick = (path) => {
+  const handleNavigateClick = (path: string) => {
     navigate(path);
   };
 

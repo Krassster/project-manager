@@ -25,11 +25,11 @@ const Auth = () => {
     password: false,
   });
 
-  const handleFocus = (field) => {
+  const handleFocus = (field: string) => {
     setIsFocused((prev) => ({ ...prev, [field]: true }));
   };
 
-  const handleBlur = (field) => {
+  const handleBlur = (field: string) => {
     setIsFocused((prev) => ({ ...prev, [field]: false }));
   };
 
@@ -110,7 +110,6 @@ const Auth = () => {
           </label>
           <input
             type="email"
-            name="email"
             placeholder="Email"
             {...registerLogin("email", {
               required: "Почта обязательна",
@@ -122,7 +121,6 @@ const Auth = () => {
           />
           <input
             type="password"
-            name="password"
             placeholder="Пароль"
             {...registerLogin("password", {
               required: "Пароль обязателен",

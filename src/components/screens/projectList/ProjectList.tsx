@@ -1,18 +1,17 @@
+import Menu from "components/layout/menu/Menu";
+import Loader from "components/ui/Loader";
+import Modal from "components/ui/modal/Modal";
+import { useAuth } from "hooks/useAuth";
 import { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import Modal from "../../ui/modal/Modal";
+import { getUser, updateUserProjects } from "services/users.service";
 import styles from "./ProjectList.module.scss";
-import { getUser, updateUserProjects } from "../../../services/users.service";
-import "./ProjectList.module.scss";
-import { useAuth } from "../../../hooks/useAuth";
-import Menu from "../../layout/menu/Menu";
-import Loader from "../../ui/Loader";
 
 const ProjectList = () => {
-  const [projects, setProjects] = useState([]);
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [isModalOpen, setModalOpen] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
@@ -31,23 +30,24 @@ const ProjectList = () => {
     };
 
     fetchProjects();
-  }, [userId]);
+  }, []);
 
-  const addProject = (newProject) => {
+  const addProject = (newProject: Project) => {
+    console.log(userId);
     const updatedProjects = [...projects, newProject];
     setProjects(updatedProjects);
     updateUserProjects(updatedProjects, userId);
   };
 
-  const deleteProject = (index) => {
+  const deleteProject = (projectId: number) => {
     setProjects((prevItems) =>
-      prevItems.filter((item) => item !== prevItems[index])
+      prevItems.filter((item) => item !== prevItems[projectId])
     );
     updateUserProjects(projects, userId);
   };
 
-  const handleProjectClick = (index) => {
-    navigate(`/project/${index}`, { state: { projectIndex: index } });
+  const handleProjectClick = (projectId: number) => {
+    navigate(`/project/${projectId}`, { state: { projectId } });
   };
 
   return (
@@ -59,8 +59,10 @@ const ProjectList = () => {
       ) : (
         <div className={styles.project}>
           <ul>
-            {projects.map((project, index) => (
-              <li key={project.title} onClick={() => handleProjectClick(index)}>
+            {projects.map((project) => (
+              <li
+                key={project.title}
+                onClick={() => handleProjectClick(project.id)}>
                 <div>{project.title}</div>
                 <div>
                   {project.completedTasks}/{project.allTasks}
@@ -70,7 +72,7 @@ const ProjectList = () => {
                   style={{ color: "#44abb8" }}
                   onClick={(e) => {
                     e.stopPropagation();
-                    deleteProject(index);
+                    deleteProject(project.id);
                   }}
                 />
               </li>

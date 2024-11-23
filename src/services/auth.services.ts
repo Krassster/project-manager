@@ -26,7 +26,12 @@ const defaultData = [
 ];
 
 export const AuthService = {
-  async authenticate(username, email, password, type) {
+  async authenticate(
+    username: string,
+    email: string,
+    password: string,
+    type: string
+  ) {
     if (type === "register") {
       const res = await fetch("http://localhost:3001/users?email=" + email);
       const users = await res.json();
@@ -35,7 +40,7 @@ export const AuthService = {
         throw new Error("Пользователь с таким email уже существует");
       }
 
-      const newUser = {
+      const newUser: User = {
         id: Date.now().toString(),
         username,
         email,
@@ -60,7 +65,7 @@ export const AuthService = {
 
       localStorage.setItem(TOKEN, createUser.token);
       localStorage.setItem("user", JSON.stringify({ id: createUser.id }));
-      localStorage.setItem("isAuth", true);
+      localStorage.setItem("isAuth", "true");
 
       return;
     }
@@ -70,7 +75,7 @@ export const AuthService = {
       const users = await res.json();
 
       const user = users.find(
-        (user) => user.password === password && user.email === email
+        (user: any) => user.password === password && user.email === email
       );
 
       if (!user) {
@@ -79,7 +84,7 @@ export const AuthService = {
 
       localStorage.setItem(TOKEN, user.token);
       localStorage.setItem("user", JSON.stringify({ id: user.id }));
-      localStorage.setItem("isAuth", true);
+      localStorage.setItem("isAuth", "true");
 
       return;
     }

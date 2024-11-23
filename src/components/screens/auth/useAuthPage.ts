@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import { AuthService } from "../../../services/auth.services";
 
 export const useAuthPage = () => {
-  const [type, setType] = useState("register");
-  const [authError, setAuthError] = useState(null);
-  const [regisError, setRegisError] = useState(null);
+  const [type, setType] = useState<string>("register");
+  const [authError, setAuthError] = useState<string | null>(null);
+  const [regisError, setRegisError] = useState<string | null>(null);
 
   const {
     register: registerLogin,
     handleSubmit: handleSubmitLogin,
     reset: resetLogin,
-  } = useForm({
+  } = useForm<AuthFormData>({
     mode: "onChange",
   });
 
@@ -22,12 +22,12 @@ export const useAuthPage = () => {
     handleSubmit: handleSubmitRegister,
     formState: { errors: errorsRegister },
     reset: resetRegister,
-  } = useForm({
+  } = useForm<AuthFormData>({
     mode: "onChange",
   });
 
-  const [isAuth, setIsAuth] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isAuth, setIsAuth] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,14 +36,18 @@ export const useAuthPage = () => {
     }
   }, [isAuth, navigate]);
 
-  const handleAuthentication = async ({ username, email, password }) => {
+  const handleAuthentication = async ({
+    username,
+    email,
+    password,
+  }: AuthFormData) => {
     setIsLoading(true);
     try {
       await AuthService.authenticate(username, email, password, type);
       setIsAuth(true);
       resetLogin();
       resetRegister();
-    } catch (error) {
+    } catch (error: any) {
       if (type === "login") {
         setAuthError(error.message);
       }
@@ -55,7 +59,7 @@ export const useAuthPage = () => {
     }
   };
 
-  const onSubmit = async (data) => {
+  const onSubmit: SubmitHandler<AuthFormData> = async (data) => {
     handleAuthentication(data);
   };
 

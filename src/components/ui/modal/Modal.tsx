@@ -1,9 +1,25 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./Modal.module.scss";
 
-const Modal = ({ isOpen, onClose, addTask, addProject, title, type }) => {
-  const [inputValue, setInputValue] = useState("");
-  const inputRef = useRef();
+interface ModalProps {
+  isOpen: boolean;
+  onClose: Function;
+  addTask?: (task: any) => void;
+  addProject?: (project: any) => void;
+  title: string;
+  type: string;
+}
+
+const Modal: React.FC<ModalProps> = ({
+  isOpen,
+  onClose,
+  addTask,
+  addProject,
+  title,
+  type,
+}) => {
+  const [inputValue, setInputValue] = useState<string>("");
+  const inputRef = useRef<HTMLInputElement>(null);
   const getCurrentDate = () => {
     const date = new Date();
 
@@ -14,20 +30,20 @@ const Modal = ({ isOpen, onClose, addTask, addProject, title, type }) => {
     return `${day}.${month}.${year}`;
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
   const handleAddData = () => {
     if (inputValue.trim()) {
-      if (type === "task") {
+      if (type === "task" && addTask) {
         addTask({
           id: Date.now(),
           title: inputValue,
           created: getCurrentDate(),
           completed: false,
         });
-      } else if (type === "project") {
+      } else if (type === "project" && addProject) {
         addProject({
           id: Date.now(),
           title: inputValue,

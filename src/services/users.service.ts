@@ -1,11 +1,11 @@
-export const getUser = async (userId) => {
+export const getUser = async (userId: number) => {
   try {
     const res = await fetch("http://localhost:3001/users");
     if (!res.ok) {
       throw new Error("Ошибка загрузки проекта");
     }
     const data = await res.json();
-    const user = data.find((user) => user.id === userId);
+    const user = data.find((user: any) => user.id === userId);
     if (user) {
       return user;
     }
@@ -15,7 +15,10 @@ export const getUser = async (userId) => {
   }
 };
 
-export const updateUserProjects = async (updatedProjects, userId) => {
+export const updateUserProjects = async (
+  updatedProjects: Project[],
+  userId: number
+) => {
   try {
     const updateRes = await fetch(`http://localhost:3001/users/${userId}`, {
       method: "PATCH",

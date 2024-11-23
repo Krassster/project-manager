@@ -7,6 +7,8 @@ import { getUser, updateUserProjects } from "services/users.service";
 import Loader from "components/ui/Loader";
 import Menu from "components/layout/menu/Menu";
 import Modal from "components/ui/modal/Modal";
+import { FaCaretUp } from "react-icons/fa";
+import { FaCaretDown } from "react-icons/fa";
 
 const ProjectDetail = () => {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -15,6 +17,8 @@ const ProjectDetail = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [editingTaskId, setEditingTaskId] = useState<number>(0);
   const [editedTitle, setEditedTitle] = useState<string>("");
+  const [sortCompleted, setSortComplited] = useState<boolean>(true);
+  const [sortDate, setSortDate] = useState<boolean>(true);
 
   const inputRef = useRef(null);
   const location = useLocation();
@@ -74,6 +78,39 @@ const ProjectDetail = () => {
     }
   };
 
+  const toggleSortCompleted = () => {
+    if (project) {
+      const sortOrder = sortCompleted ? 1 : -1;
+      const sortedTasks = project.tasks.sort(
+        (a, b) => sortOrder * (Number(a.completed) - Number(b.completed))
+      );
+      const updatedProject = { ...project, tasks: sortedTasks };
+      handleUpdateProjects(updatedProject);
+      setSortComplited(!sortCompleted);
+    }
+  };
+
+  const toggleSortDate = () => {
+    if (project) {
+      const sortedTasks = project.tasks.sort((a, b) => {
+        const dateA = parseDate(a.created);
+        const dateB = parseDate(b.created);
+
+        return sortDate ? dateA - dateB : dateB - dateA;
+      });
+      console.log(sortedTasks);
+
+      const updatedProject = { ...project, tasks: sortedTasks };
+      handleUpdateProjects(updatedProject);
+      setSortDate(!sortDate);
+    }
+  };
+
+  const parseDate = (dateString: string): number => {
+    const [day, month, year] = dateString.split(".").map(Number);
+    return new Date(year, month - 1, day).getTime();
+  };
+
   const editTaskTitle = (taskId: number, newTitle: string) => {
     if (project) {
       const updatedTasks = project.tasks.map((task) =>
@@ -125,8 +162,12 @@ const ProjectDetail = () => {
             <thead>
               <tr>
                 <th>Описание</th>
-                <th>Дата создания</th>
-                <th>Выполнено</th>
+                <th onClick={toggleSortDate}>
+                  Дата создания {sortDate ? <FaCaretUp /> : <FaCaretDown />}
+                </th>
+                <th onClick={toggleSortCompleted}>
+                  Выполнено {sortCompleted ? <FaCaretUp /> : <FaCaretDown />}
+                </th>
                 <th></th>
               </tr>
             </thead>

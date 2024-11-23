@@ -45,11 +45,17 @@ const Profile = () => {
       <h1>Профиль</h1>
       <div className={styles.wrapper}>
         <div className={styles.profile}>
-          <div>Имя: {username}</div>
-          <div>Почта: {email}</div>
-          <div>Количество проектов: {projects.length}</div>
           <div>
-            Количество задач: {totalCompletedTasks} /{totalTasks}{" "}
+            <b>Имя:</b> {username}
+          </div>
+          <div>
+            <b>Почта:</b> {email}
+          </div>
+          <div>
+            <b>Количество проектов:</b> {projects.length}
+          </div>
+          <div>
+            <b>Количество задач:</b> {totalCompletedTasks} /{totalTasks}
             (выполнено/всего)
           </div>
         </div>

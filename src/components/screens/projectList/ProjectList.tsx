@@ -1,20 +1,20 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { MdDelete } from "react-icons/md";
+
+import { useAuth } from "hooks/useAuth";
+import { getUser, updateUserProjects } from "services/users.service";
+
 import Menu from "components/layout/menu/Menu";
 import Loader from "components/ui/Loader";
 import Modal from "components/ui/modal/Modal";
-import { useAuth } from "hooks/useAuth";
-import { useEffect, useState } from "react";
-import { MdDelete } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
-import { getUser, updateUserProjects } from "services/users.service";
+
 import styles from "./ProjectList.module.scss";
 
 const ProjectList = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const openModal = () => setModalOpen(true);
-  const closeModal = () => setModalOpen(false);
 
   const navigate = useNavigate();
   const {
@@ -49,6 +49,9 @@ const ProjectList = () => {
   const handleProjectClick = (projectId: number) => {
     navigate(`/project/${projectId}`, { state: { projectId } });
   };
+
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
 
   return (
     <div className="container">

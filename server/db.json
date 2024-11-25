@@ -1,124 +1,10 @@
 {
   "users": [
     {
-      "id": "1732284018195",
-      "username": "aleksey.motrenko@yandex.ru",
-      "email": "aleksey.motrenko@yandex.ru",
-      "password": "aleksey.motrenko@yandex.ru",
-      "token": "86d7a6ee-8230-4c1b-a8cb-23ace352a3a2",
-      "projects": [
-        {
-          "id": 1732284285655,
-          "title": "Yandex",
-          "completedTasks": 1,
-          "allTasks": 2,
-          "created": "22.11.2024",
-          "tasks": [
-            {
-              "id": 1732284285655,
-              "title": "Твоя первая задача в этом проекте",
-              "created": "22.11.2024",
-              "completed": false
-            },
-            {
-              "id": 1732284285656,
-              "title": "Задача которую ты уже выполнил",
-              "created": "22.11.2024",
-              "completed": true
-            }
-          ]
-        },
-        {
-          "id": 1732284427913,
-          "title": "Google",
-          "completedTasks": 2,
-          "allTasks": 3,
-          "created": "22.11.2024",
-          "tasks": [
-            {
-              "id": 1732284427913,
-              "title": "Твоя первая задача в этом проекте",
-              "created": "22.11.2024",
-              "completed": false
-            },
-            {
-              "id": 1732284427914,
-              "title": "Задача которую ты уже выполнил",
-              "created": "22.11.2024",
-              "completed": true
-            },
-            {
-              "id": 1732284865313,
-              "title": "`231",
-              "created": "22.11.2024",
-              "completed": true
-            }
-          ]
-        },
-        {
-          "id": 1732371934933,
-          "title": "123",
-          "completedTasks": 0,
-          "allTasks": 1,
-          "created": "23.11.2024",
-          "tasks": [
-            {
-              "id": 1732371934933,
-              "title": "Твоя первая задача в этом проекте",
-              "created": "23.11.2024",
-              "completed": false
-            }
-          ]
-        },
-        {
-          "id": 1732371977651,
-          "title": "Двойная запись",
-          "completedTasks": 1,
-          "allTasks": 2,
-          "created": "23.11.2024",
-          "tasks": [
-            {
-              "id": 1732371977651,
-              "title": "Твоя первая задача в этом проекте",
-              "created": "23.11.2024",
-              "completed": false
-            },
-            {
-              "id": 1732371977652,
-              "title": "Задача которую ты уже выполнил",
-              "created": "23.11.2024",
-              "completed": true
-            }
-          ]
-        },
-        {
-          "id": 1732372072500,
-          "title": "Тройной наеб",
-          "completedTasks": 1,
-          "allTasks": 2,
-          "created": "23.11.2024",
-          "tasks": [
-            {
-              "id": 1732372072500,
-              "title": "Твоя первая задача в этом проекте",
-              "created": "23.11.2024",
-              "completed": false
-            },
-            {
-              "id": 1732372072501,
-              "title": "Задача которую ты уже выполнил",
-              "created": "23.11.2024",
-              "completed": true
-            }
-          ]
-        }
-      ]
-    },
-    {
       "id": "1732314006299",
-      "username": "aleksey.motrenko@mail.ru",
-      "email": "aleksey.motrenko@mail.ru",
-      "password": "aleksey.motrenko@mail.ru",
+      "username": "test",
+      "email": "test@test.test",
+      "password": "123456test",
       "token": "4b3ae80a-3860-4de3-8868-17f172eda618",
       "projects": [
         {
@@ -136,9 +22,9 @@
             },
             {
               "id": 1732395123909,
-              "title": "Не выпонленная задача",
+              "title": "Перебрать вещи в гараже",
               "created": "23.11.2024",
-              "completed": false
+              "completed": true
             },
             {
               "id": 1732284285656,
@@ -148,126 +34,87 @@
             },
             {
               "id": 1732395116623,
-              "title": "Выполненая задача",
+              "title": "Починить телевизор",
               "created": "23.11.2024",
-              "completed": true
-            }
-          ]
-        },
-        {
-          "id": 1732314029512,
-          "title": "123",
-          "completedTasks": 2,
-          "allTasks": 5,
-          "created": "23.11.2024",
-          "tasks": [
-            {
-              "id": 1732314029512,
-              "title": "Твоя первая задача в этом проекте",
-              "created": "23.11.2024",
-              "completed": true
-            },
-            {
-              "id": 1732394001319,
-              "title": "Raf",
-              "created": "23.11.2024",
-              "completed": true
-            },
-            {
-              "id": 1732314029513,
-              "title": "Задача которую ты уже выполнил",
-              "created": "23.11.2024",
-              "completed": false
-            },
-            {
-              "id": 1732397824973,
-              "title": "Задачка",
-              "created": "24.11.2024",
-              "completed": false
-            },
-            {
-              "id": 1732398078632,
-              "title": "Вот же задачка",
-              "created": "24.11.2024",
               "completed": false
             }
           ]
         },
         {
-          "id": 1732372303958,
-          "title": "Мои дела изменились",
-          "completedTasks": 1,
-          "allTasks": 3,
-          "created": "23.11.2024",
-          "tasks": [
-            {
-              "id": 1732372303958,
-              "title": "Твоя первая задача в этом проекте",
-              "created": "23.11.2024",
-              "completed": false
-            },
-            {
-              "id": 1732393988230,
-              "title": "412",
-              "created": "23.11.2024",
-              "completed": false
-            },
-            {
-              "id": 1732372303959,
-              "title": "Задача которую ты уже выполнил",
-              "created": "23.11.2024",
-              "completed": true
-            }
-          ]
-        },
-        {
-          "id": 1732372488885,
-          "title": "Какой то ещё проект",
-          "completedTasks": 1,
-          "allTasks": 2,
-          "created": "23.11.2024",
-          "tasks": [
-            {
-              "id": 1732372488885,
-              "title": "Твоя первая задача в этом проекте",
-              "created": "23.11.2024",
-              "completed": false
-            },
-            {
-              "id": 1732372488886,
-              "title": "Задача которую ты уже выполнил",
-              "created": "23.11.2024",
-              "completed": true
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "1732314034708",
-      "username": "evgenykurt@me.com",
-      "email": "evgenykurt@me.com",
-      "password": "evgenykurt@me.com",
-      "token": "1110c025-5216-4a36-b6b4-b93e3ae28f9f",
-      "projects": [
-        {
-          "id": 1732284285655,
-          "title": "Домашние дела",
-          "completedTasks": 1,
-          "allTasks": 2,
+          "id": 1732399824017,
+          "title": "Альфа",
+          "completedTasks": 3,
+          "allTasks": 6,
           "created": "22.11.2024",
           "tasks": [
             {
-              "id": 1732284285655,
-              "title": "Собрать паутину",
+              "id": 1732399824017,
+              "title": "Начальная задача",
+              "created": "22.11.2024",
+              "completed": true
+            },
+            {
+              "id": 1732394001453,
+              "title": "Добавить логику",
+              "created": "22.11.2024",
+              "completed": true
+            },
+            {
+              "id": 1732314029533,
+              "title": "Проверить результаты",
+              "created": "22.11.2024",
+              "completed": true
+            },
+            {
+              "id": 1732397824990,
+              "title": "Доделать дизайн",
+              "created": "23.11.2024",
+              "completed": false
+            },
+            {
+              "id": 1732398078654,
+              "title": "Написать документацию",
+              "created": "23.11.2024",
+              "completed": false
+            },
+            {
+              "id": 1732398078756,
+              "title": "Финальная проверка",
+              "created": "24.11.2024",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": 1732399006513,
+          "title": "Бета",
+          "completedTasks": 1,
+          "allTasks": 4,
+          "created": "21.11.2024",
+          "tasks": [
+            {
+              "id": 1732399006513,
+              "title": "Собрать базу данных",
+              "created": "21.11.2024",
+              "completed": true
+            },
+            {
+              "id": 1732394001375,
+              "title": "Протестировать приложение",
+              "created": "21.11.2024",
+              "completed": false
+            },
+            {
+              "id": 1732314029555,
+              "title": "Добавить конфигурацию",
               "created": "22.11.2024",
               "completed": false
             },
             {
-              "id": 1732284285656,
-              "title": "Купить продуктов",
-              "created": "19.11.2024",
-              "completed": true
+              "id": 1732397824932,
+              "title": "Провести код-ревью",
+              "created": "23.11.2024",
+              "completed": false
             }
           ]
         }

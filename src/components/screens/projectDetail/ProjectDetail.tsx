@@ -1,14 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
-import styles from "./ProjectDetails.module.scss";
+import { FaCaretUp } from "react-icons/fa";
+import { FaCaretDown } from "react-icons/fa";
+
 import { useAuth } from "hooks/useAuth";
 import { getUser, updateUserProjects } from "services/users.service";
+
 import Loader from "components/ui/Loader";
 import Menu from "components/layout/menu/Menu";
 import Modal from "components/ui/modal/Modal";
-import { FaCaretUp } from "react-icons/fa";
-import { FaCaretDown } from "react-icons/fa";
+
+import styles from "./ProjectDetails.module.scss";
 
 const ProjectDetail = () => {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -26,9 +29,6 @@ const ProjectDetail = () => {
   const {
     user: { id: userId },
   } = useAuth();
-
-  const openModal = () => setModalOpen(true);
-  const closeModal = () => setModalOpen(false);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -56,6 +56,14 @@ const ProjectDetail = () => {
 
     return { allTasks, completedTasks };
   };
+
+  const parseDate = (dateString: string): number => {
+    const [day, month, year] = dateString.split(".").map(Number);
+    return new Date(year, month - 1, day).getTime();
+  };
+
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
 
   const handleUpdateProjects = (updatedProject: Project) => {
     const taskStats = calcTaskStats(updatedProject.tasks);
@@ -104,11 +112,6 @@ const ProjectDetail = () => {
       handleUpdateProjects(updatedProject);
       setSortDate(!sortDate);
     }
-  };
-
-  const parseDate = (dateString: string): number => {
-    const [day, month, year] = dateString.split(".").map(Number);
-    return new Date(year, month - 1, day).getTime();
   };
 
   const editTaskTitle = (taskId: number, newTitle: string) => {

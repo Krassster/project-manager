@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useAuthPage } from "./useAuthPage";
 
-import Loader from "../../ui/Loader";
-
 import styles from "./Auth.module.scss";
 
 const Auth = () => {
@@ -14,7 +12,6 @@ const Auth = () => {
     errorsRegister,
     onSubmit,
     setType,
-    isLoading,
     authError,
     regisError,
   } = useAuthPage();

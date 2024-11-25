@@ -1,7 +1,8 @@
+import { useLocation, useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { GoProjectRoadmap } from "react-icons/go";
 import { RiLogoutBoxLine } from "react-icons/ri";
-import { useLocation, useNavigate } from "react-router-dom";
+
 import { AuthService } from "../../../services/auth.services";
 
 import styles from "./Menu.module.scss";

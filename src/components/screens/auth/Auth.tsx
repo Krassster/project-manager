@@ -1,9 +1,9 @@
+import { useState } from "react";
+import { useAuthPage } from "./useAuthPage";
+
 import Loader from "../../ui/Loader";
 
 import styles from "./Auth.module.scss";
-
-import { useAuthPage } from "./useAuthPage";
-import { useState } from "react";
 
 const Auth = () => {
   const {
